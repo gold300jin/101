@@ -11,26 +11,19 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
-public class NIOServer {
+public class NIOServer2 {
 
     public static void main(String[] args) throws IOException {
 
+        Selector selector = Selector.open();
+
         ServerSocketChannel ssChannel = ServerSocketChannel.open();
         ssChannel.configureBlocking(false);
+        ssChannel.register(selector, SelectionKey.OP_ACCEPT);
+
         ServerSocket serverSocket = ssChannel.socket();
         InetSocketAddress address = new InetSocketAddress("127.0.0.1", 8888);
         serverSocket.bind(address);
-
-        ServerSocketChannel ssChannel2 = ServerSocketChannel.open();
-        ssChannel2.configureBlocking(false);
-        ServerSocket serverSocket2 = ssChannel2.socket();
-        InetSocketAddress address2 = new InetSocketAddress("127.0.0.1", 8889);
-        serverSocket2.bind(address2);
-
-
-        Selector selector = Selector.open();
-        ssChannel.register(selector, SelectionKey.OP_ACCEPT);
-        ssChannel2.register(selector, SelectionKey.OP_ACCEPT);
 
         while (true) {
 
@@ -45,18 +38,14 @@ public class NIOServer {
                 if (key.isAcceptable()) {
 
                     ServerSocketChannel ssChannel1 = (ServerSocketChannel) key.channel();
-                    SocketChannel sChannel = ssChannel1.accept();
-//                    System.out.println(readDataFromSocketChannel(sChannel));
-//                    // 服务器会为每个新连接创建一个 SocketChannel
-//                    sChannel.configureBlocking(false);
-//
-//                    // 这个新连接主要用于从客户端读取数据
-//                    sChannel.register(selector, SelectionKey.OP_READ);
 
-                    ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-                    sChannel.read(byteBuffer);
-                    String result = new String(byteBuffer.array()).trim();
-                    System.out.print(result);
+                    // 服务器会为每个新连接创建一个 SocketChannel
+                    SocketChannel sChannel = ssChannel1.accept();
+                    sChannel.configureBlocking(false);
+
+                    // 这个新连接主要用于从客户端读取数据
+                    sChannel.register(selector, SelectionKey.OP_READ);
+
                 } else if (key.isReadable()) {
 
                     SocketChannel sChannel = (SocketChannel) key.channel();

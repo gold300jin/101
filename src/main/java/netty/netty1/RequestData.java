@@ -1,4 +1,4 @@
-package netty;
+package netty.netty1;
 
 import lombok.Data;
 

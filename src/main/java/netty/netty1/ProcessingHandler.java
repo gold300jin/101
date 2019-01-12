@@ -1,4 +1,4 @@
-package netty;
+package netty.netty1;
 
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;

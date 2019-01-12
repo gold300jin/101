@@ -3,6 +3,7 @@ package concurrent.Semaphore;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.HashMap;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;

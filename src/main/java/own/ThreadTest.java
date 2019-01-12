@@ -1,5 +1,6 @@
 package own;
 
+import java.util.Arrays;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
@@ -21,8 +22,8 @@ public class ThreadTest {
 //        test.reentrantLockTest();
 //        test.testNotify();
 //        test.testCountDown();
-//        test.testCyclicBarrier();
-        test.testSemaphore();
+        test.testCyclicBarrier();
+//        test.testSemaphore();
     }
 
 
